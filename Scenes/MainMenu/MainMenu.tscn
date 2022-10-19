@@ -1,0 +1,194 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Scenes/MainMenu/MainMenu.cs" type="Script" id=1]
+[ext_resource path="res://Themes/MainMenuTheme.tres" type="Theme" id=2]
+[ext_resource path="res://Scenes/MainMenu/MainMenuButtons.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/MainMenu/OptionsMenu/MasterOptionsMenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/MainMenu/Credits/Credits.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/UI/SoundButton/SoundButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/MainMenu/Animations/MainMenuIntro.tres" type="Animation" id=7]
+[ext_resource path="res://Scenes/MainMenu/Animations/MainMenuMainMenuOpen.tres" type="Animation" id=8]
+[ext_resource path="res://Scenes/MainMenu/Animations/MainMenuCloseSubMenu.tres" type="Animation" id=9]
+[ext_resource path="res://Scenes/MainMenu/Animations/MainMenuOpenSubMenu.tres" type="Animation" id=10]
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "CloseSubMenu"
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "Intro"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "MainMenuOpen"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "OpenSubMenu"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=6]
+advance_condition = "IntroDone"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=7]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=8]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id=10]
+states/CloseSubMenu/node = SubResource( 2 )
+states/CloseSubMenu/position = Vector2( 798, 190 )
+states/Intro/node = SubResource( 3 )
+states/Intro/position = Vector2( 190, 63 )
+states/MainMenuOpen/node = SubResource( 4 )
+states/MainMenuOpen/position = Vector2( 484, 63 )
+states/OpenSubMenu/node = SubResource( 5 )
+states/OpenSubMenu/position = Vector2( 782, 71 )
+transitions = [ "Intro", "MainMenuOpen", SubResource( 6 ), "MainMenuOpen", "OpenSubMenu", SubResource( 7 ), "OpenSubMenu", "CloseSubMenu", SubResource( 8 ), "CloseSubMenu", "MainMenuOpen", SubResource( 9 ) ]
+start_node = "Intro"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MenuAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/CloseSubMenu = ExtResource( 9 )
+anims/Intro = ExtResource( 7 )
+anims/MainMenuOpen = ExtResource( 8 )
+anims/OpenSubMenu = ExtResource( 10 )
+
+[node name="MenuAnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 10 )
+anim_player = NodePath("../MenuAnimationPlayer")
+active = true
+parameters/playback = SubResource( 1 )
+parameters/conditions/IntroDone = false
+
+[node name="TitleContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 32
+custom_constants/margin_top = 64
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 16
+
+[node name="Titles" type="Control" parent="TitleContainer"]
+margin_left = 32.0
+margin_top = 64.0
+margin_right = 992.0
+margin_bottom = 584.0
+mouse_filter = 2
+
+[node name="TitlesContainer" type="VBoxContainer" parent="TitleContainer/Titles"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -416.0
+margin_right = 416.0
+margin_bottom = 97.0
+custom_constants/separation = 24
+
+[node name="Title" type="Label" parent="TitleContainer/Titles/TitlesContainer"]
+margin_right = 832.0
+margin_bottom = 14.0
+text = "Title"
+align = 1
+
+[node name="SubTitle" type="Label" parent="TitleContainer/Titles/TitlesContainer"]
+margin_top = 38.0
+margin_right = 832.0
+margin_bottom = 52.0
+text = "Subtitle"
+align = 1
+
+[node name="VersionNameLabel" type="Label" parent="TitleContainer/Titles"]
+unique_name_in_owner = true
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -14.0
+
+[node name="MenuContainer" type="MarginContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MainMenuButtons" parent="MenuContainer" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="TutorialButton" parent="MenuContainer/MainMenuButtons/ButtonsContainer" index="1"]
+margin_top = 44.0
+margin_bottom = 84.0
+
+[node name="OptionsButton" parent="MenuContainer/MainMenuButtons/ButtonsContainer" index="2"]
+margin_top = 88.0
+margin_bottom = 128.0
+
+[node name="CreditsButton" parent="MenuContainer/MainMenuButtons/ButtonsContainer" index="3"]
+margin_top = 132.0
+margin_bottom = 172.0
+
+[node name="ExitButton" parent="MenuContainer/MainMenuButtons/ButtonsContainer" index="4"]
+margin_top = 176.0
+margin_bottom = 216.0
+
+[node name="MasterOptionsMenu" parent="." instance=ExtResource( 4 )]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -240.0
+margin_right = 200.0
+margin_bottom = 240.0
+
+[node name="CreditsContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Credits" parent="CreditsContainer" instance=ExtResource( 5 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="FlowControlContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="FlowControl" type="Control" parent="FlowControlContainer"]
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+
+[node name="BackButton" parent="FlowControlContainer/FlowControl" instance=ExtResource( 6 )]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -40.0
+margin_right = 62.0
+text = "Back"
+
+[connection signal="pressed" from="MenuContainer/MainMenuButtons/ButtonsContainer/PlayButton" to="." method="OnPlayButtonPressed"]
+[connection signal="pressed" from="MenuContainer/MainMenuButtons/ButtonsContainer/TutorialButton" to="." method="OnTutorialButtonPressed"]
+[connection signal="pressed" from="MenuContainer/MainMenuButtons/ButtonsContainer/OptionsButton" to="." method="OnOptionsButtonPressed"]
+[connection signal="pressed" from="MenuContainer/MainMenuButtons/ButtonsContainer/CreditsButton" to="." method="OnCreditsButtonPressed"]
+[connection signal="pressed" from="MenuContainer/MainMenuButtons/ButtonsContainer/ExitButton" to="." method="OnExitButtonPressed"]
+[connection signal="pressed" from="FlowControlContainer/FlowControl/BackButton" to="." method="OnBackButtonPressed"]
+
+[editable path="MenuContainer/MainMenuButtons"]
