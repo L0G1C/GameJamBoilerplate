@@ -75,9 +75,9 @@ public class MainMenu : Control
 
     public void OnCreditsButtonPressed()
     {
-        var credits = GetNode<Control>("CreditsContainer/Credits");
+        var credits = GetNode<Credits>("CreditsContainer/Credits");
         OpenSubMenu(credits);
-        //credits.reset()
+        credits.Reset();
     }
 
     public void OnExitButtonPressed()
