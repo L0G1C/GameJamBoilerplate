@@ -12,6 +12,7 @@ public class SoundButton : Button
     {
         if (Disabled)
             return;
+        
         GetNode<AudioStreamPlayer>("AudioStreamPlayers/HoverSound").Play();
     }
 }

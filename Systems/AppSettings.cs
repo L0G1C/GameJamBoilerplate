@@ -174,6 +174,7 @@ public class AppSettings : Node
             if (!Config.Instance.HasSection(AUDIO_SECTION))
             {
                 ResetAudioConfig();
+                return;
             }
 
             SetAudioFromConfig();
@@ -183,12 +184,41 @@ public class AppSettings : Node
 
     # region Video Config
 
+        public void SetFullscreenEnabled(bool value)
+        {
+            OS.WindowFullscreen = value;
+            Config.Instance.SetConfig(VIDEO_SECTION, FULLSCREEN_ENABLED, value);
+        }
+
+        public void ResetVideoConfig()
+        {
+            Config.Instance.SetConfig(VIDEO_SECTION, FULLSCREEN_ENABLED, OS.WindowFullscreen);
+        }
+
+        public void SetVideoFromConfig()
+        {
+            bool fullscreenEnabled = OS.WindowFullscreen;
+            fullscreenEnabled = (bool)Config.Instance.GetConfig(VIDEO_SECTION, FULLSCREEN_ENABLED, fullscreenEnabled);
+            OS.WindowFullscreen = fullscreenEnabled;
+        }
+
+        public void InitVideoConfig()
+        {
+            if (!Config.Instance.HasSection(VIDEO_SECTION))
+            {
+                ResetVideoConfig();           
+                return;     
+            }
+
+            SetVideoFromConfig();
+        }
+
     # endregion
 
     public void InitializeFromConfig()
     {
         InitInputConfig();
         InitAudioConfig();
-        // InitVideoConfig();
+        InitVideoConfig();
     }
 }
