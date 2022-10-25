@@ -3,7 +3,7 @@ using System;
 
 public class SceneLoader : Node
 {
-    public PackedScene _loadingScreen = (PackedScene)GD.Load("res://Scenes/LoadingScreen/LoadingScreen.tscn");
+    private PackedScene _loadingScreen = (PackedScene)GD.Load("res://Scenes/LoadingScreen/LoadingScreen.tscn");
     public ResourceInteractiveLoader Loader;
     public string SceneToLoad;
 

@@ -18,3 +18,5 @@ margin_left = 412.0
 margin_top = 265.0
 margin_right = 612.0
 margin_bottom = 335.0
+
+[connection signal="confirmed" from="KeyAssignmentDialog" to="." method="OnKeyAssignmentDialogConfirmed"]

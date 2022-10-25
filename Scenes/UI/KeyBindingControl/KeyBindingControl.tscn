@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/UI/KeyBindingControl/KeyBindingControl.cs" type="Script" id=1]
+
+[node name="KeyBindingControl" type="HBoxContainer"]
+margin_right = 300.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="ActionLabel" type="Label" parent="."]
+margin_top = 13.0
+margin_right = 53.0
+margin_bottom = 27.0
+text = "Action : "
+
+[node name="AssignedKeyLabel" type="Label" parent="."]
+margin_left = 57.0
+margin_top = 13.0
+margin_right = 260.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+text = "E"
+align = 1
+
+[node name="Button" type="Button" parent="."]
+margin_left = 264.0
+margin_right = 300.0
+margin_bottom = 40.0
+text = "Edit"
+
+[connection signal="pressed" from="Button" to="." method="OnEditButtonPressed"]
