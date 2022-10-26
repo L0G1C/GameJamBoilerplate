@@ -33,7 +33,7 @@ public class InputOptionsMenu : CenterContainer
         }
     }
 
-    public bool IsEditingKeyBinding()
+    private bool IsEditingKeyBinding()
     {
         return !string.IsNullOrEmpty(_editingActionName);
     }
@@ -49,7 +49,7 @@ public class InputOptionsMenu : CenterContainer
         dialog.PopupCentered();
     }
 
-    public void UpdateUI()
+    private void UpdateUI()
     {
         foreach (string actionName in AppSettings.Instance.INPUT_MAP.Keys)
         {
@@ -83,7 +83,7 @@ public class InputOptionsMenu : CenterContainer
         }
     }
 
-    public void AssignKeyToAction(InputEventKey actionEvent, string actionName)
+    private void AssignKeyToAction(InputEventKey actionEvent, string actionName)
     {
         foreach (InputEventKey oldEvent in InputMap.GetActionList(actionName))
             InputMap.ActionEraseEvent(actionName, oldEvent);

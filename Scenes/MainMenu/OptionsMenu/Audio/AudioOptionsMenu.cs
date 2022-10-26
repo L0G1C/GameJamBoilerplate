@@ -29,20 +29,20 @@ public class AudioOptionsMenu : CenterContainer
     }
 
     // TODO - Not needed?
-    public void PlayNextAudioStream(Node streamParent)
+    private void PlayNextAudioStream(Node streamParent)
     {        
     }
 
-    public void PlayNextVocalAudioStream()
+    private void PlayNextVocalAudioStream()
     {
         PlayNextAudioStream(GetNode<Node>("VocalAudioStreamPlayers"));
     }
-    public void PlayNextSFXAudioStream()
+    private void PlayNextSFXAudioStream()
     {
         PlayNextAudioStream(GetNode<Node>("SFXAudioStreamPlayers"));
     }
 
-    public void UpdateUI()
+    private void UpdateUI()
     {
         _masterSlider.Value = AppSettings.Instance.GetBusVolume("Master");        
         _sfxSlider.Value = AppSettings.Instance.GetBusVolume("SFX");
