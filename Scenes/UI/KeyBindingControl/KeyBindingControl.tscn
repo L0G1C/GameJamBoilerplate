@@ -12,6 +12,7 @@ ScanCode = 69
 margin_top = 13.0
 margin_right = 80.0
 margin_bottom = 27.0
+rect_min_size = Vector2( 80, 0 )
 text = "Action : "
 
 [node name="AssignedKeyLabel" type="Label" parent="."]
@@ -24,7 +25,7 @@ text = "E"
 align = 1
 
 [node name="Button" type="Button" parent="."]
-margin_left = 264.0
+margin_left = 263.0
 margin_right = 300.0
 margin_bottom = 40.0
 text = "Edit"
