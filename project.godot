@@ -19,8 +19,9 @@ config/icon="res://icon.png"
 Config="*res://Systems/Config.cs"
 InGameMenuController="*res://Systems/InGameMenuController.cs"
 SceneLoader="*res://Systems/SceneLoader.cs"
-AppLogger="*res://Systems/AppLogger.cs"
 AppSettings="*res://Systems/AppSettings.cs"
+AppLog="*res://Systems/AppLog.cs"
+AppLogger="*res://Systems/AppLogger.cs"
 
 [debug]
 

@@ -53,8 +53,7 @@ public class InputOptionsMenu : CenterContainer
     {
         foreach (string actionName in AppSettings.Instance.INPUT_MAP.Keys)
         {
-            var inputEvents = InputMap.GetActionList(actionName);
-            GD.Print(InputMap.GetActionList(actionName));
+            var inputEvents = InputMap.GetActionList(actionName);            
             if (inputEvents.Count < 1)
             {
                 GD.Print($"{actionName} is empty");
@@ -62,9 +61,6 @@ public class InputOptionsMenu : CenterContainer
             }
 
             InputEventKey inputEvent = (InputEventKey)inputEvents[0];
-             GD.Print($"Input Event Key Name: {inputEvent.ResourceName}");
-             GD.Print($"Input Event Scan Code Value: {inputEvent.Scancode}");
-             GD.Print($"Input Event Physical Scan Code Value: {inputEvent.PhysicalScancode}");
             var readableName = AppSettings.Instance.INPUT_MAP[actionName];
             KeyBindingControl controlInstance;
 

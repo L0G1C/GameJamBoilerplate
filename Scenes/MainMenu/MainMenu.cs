@@ -12,11 +12,14 @@ public class MainMenu : Control
     private AnimationNodeStateMachinePlayback _animationStateMachine;
     private Control _subMenu;
 
+    private GameLog _gameLog;
+
     public override void _Ready()
     {
         SetupForWeb();
         SetupVersionName();
         _animationStateMachine = (AnimationNodeStateMachinePlayback)GetNode<AnimationTree>("MenuAnimationTree").Get("parameters/playback");
+        _gameLog = new GameLog();
     }
 
     public void LoadScene(string scenePath)
@@ -33,7 +36,7 @@ public class MainMenu : Control
 
     public void PlayGame()
     {
-        //GameLog.GameStarted();
+        _gameLog.GameStarted();
         SceneLoader.Instance.LoadScene(GameScene);
     }
 

@@ -3,12 +3,15 @@ using System;
 
 public class GameOptionsMenu : CenterContainer
 {
-    // public override void _Ready()
-    // {
-    //     Connect("ResetConfirmed", this, "OnResetGameControlResetConfirmed");
-    // }
+    private GameLog _gameLog;
+
+    public override void _Ready()
+    {
+        //Connect("ResetConfirmed", this, "OnResetGameControlResetConfirmed");
+        _gameLog = new GameLog();
+    }
     public void OnResetGameControlResetConfirmed()
     {
-        //GameLog.ResetGameData();
+        _gameLog.ResetGameData();
     }
 }
