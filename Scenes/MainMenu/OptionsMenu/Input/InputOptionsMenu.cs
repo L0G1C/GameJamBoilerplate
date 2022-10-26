@@ -7,13 +7,13 @@ public class InputOptionsMenu : CenterContainer
 {
     private string _placeHolderText;
     private PackedScene _keyBindingControlScene = (PackedScene)GD.Load("res://Scenes/UI/KeyBindingControl/KeyBindingControl.tscn");
-    private Dictionary<string, Node> _inputNodeMap;
+    private Dictionary<string, KeyBindingControl> _inputNodeMap;
     private string _editingActionName;
     private InputEventWithModifiers _lastInputEvent;
     public override void _Ready()
     {
         _placeHolderText = GetNode<ConfirmationDialog>("KeyAssignmentDialog").DialogText;
-        _inputNodeMap = new Dictionary<string, Node>();
+        _inputNodeMap = new Dictionary<string, KeyBindingControl>();
         AppSettings.Instance.SetInputsFromConfig();
         UpdateUI();
     }
@@ -53,7 +53,8 @@ public class InputOptionsMenu : CenterContainer
     {
         foreach (string actionName in AppSettings.Instance.INPUT_MAP.Keys)
         {
-            Array inputEvents = InputMap.GetActionList(actionName);
+            var inputEvents = InputMap.GetActionList(actionName);
+            GD.Print(InputMap.GetActionList(actionName));
             if (inputEvents.Count < 1)
             {
                 GD.Print($"{actionName} is empty");
@@ -61,6 +62,9 @@ public class InputOptionsMenu : CenterContainer
             }
 
             InputEventKey inputEvent = (InputEventKey)inputEvents[0];
+             GD.Print($"Input Event Key Name: {inputEvent.ResourceName}");
+             GD.Print($"Input Event Scan Code Value: {inputEvent.Scancode}");
+             GD.Print($"Input Event Physical Scan Code Value: {inputEvent.PhysicalScancode}");
             var readableName = AppSettings.Instance.INPUT_MAP[actionName];
             KeyBindingControl controlInstance;
 

@@ -52,7 +52,7 @@ public class AppSettings : Node
         if (actionEvent.Scancode != 0)
             return actionEvent.GetScancodeWithModifiers();
         else
-            return OS.KeyboardGetScancodeFromPhysical(actionEvent.GetScancodeWithModifiers());
+            return OS.KeyboardGetScancodeFromPhysical(actionEvent.GetPhysicalScancodeWithModifiers());
     }
 
     public void ResetInputConfig()
@@ -62,7 +62,7 @@ public class AppSettings : Node
             var actionEventsArray = InputMap.GetActionList(actionName);
             
             if (actionEventsArray.Count == 0)
-                return;
+                continue;
 
             InputEventWithModifiers actionEvent = (InputEventWithModifiers)actionEventsArray[0];
 
@@ -79,14 +79,15 @@ public class AppSettings : Node
         {
             uint scanCode = GetActionScancode(actionName);
             var eventKey = new InputEventKey();
-
+            eventKey.Scancode = scanCode;
+            
             foreach (var oldEvent in InputMap.GetActionList(actionName))
             {
                 if (oldEvent is InputEventKey)
-                    InputMap.ActionEraseEvent(actionName, (InputEvent)oldEvent);
-                
-                InputMap.ActionAddEvent(actionName, (InputEvent)oldEvent);
+                    InputMap.ActionEraseEvent(actionName, (InputEvent)oldEvent);                                
             }
+
+            InputMap.ActionAddEvent(actionName, eventKey);
 
         }
     }
@@ -95,7 +96,8 @@ public class AppSettings : Node
     {
         if (!Config.Instance.HasSection(INPUT_SECTION))
         {
-            ResetInputConfig();            
+            ResetInputConfig();    
+            return;        
         }
         SetInputsFromConfig();
     }
