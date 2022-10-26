@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/UI/ResetGameControl/ResetGameControl.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/MainMenu/OptionsMenu/Game/GameOptionsMenu.cs" type="Script" id=2]
+
+[node name="Game" type="CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 431.0
+margin_top = 284.0
+margin_right = 593.0
+margin_bottom = 316.0
+
+[node name="ResetGameControl" parent="VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 0.0
+margin_right = 300.0
+margin_bottom = 32.0
+
+[connection signal="ResetConfirmed" from="VBoxContainer/ResetGameControl" to="." method="OnResetGameControlResetConfirmed"]
